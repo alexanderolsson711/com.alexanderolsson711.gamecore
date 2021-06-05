@@ -1,0 +1,17 @@
+{
+    "name": "com.alexanderolsson711.gamecore",
+    "version": "0.0.1",
+    "displayName": "Game Core", 
+    "description": "",
+    "unity": "2020.1",
+    "dependencies": {},
+    "keywords": ["Core", "tools", "manager", "character", "game"],
+    "author": {
+        "name": "Alexander Olsson",
+        "email": "Alexander@aceit.nu"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alexanderolsson711/UnityGameCore"
+    }
+}
