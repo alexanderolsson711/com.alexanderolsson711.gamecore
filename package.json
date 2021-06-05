@@ -10,8 +10,5 @@
         "name": "Alexander Olsson",
         "email": "Alexander@aceit.nu"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/alexanderolsson711/UnityGameCore"
-    }
+    "hideInEditor": false
 }
