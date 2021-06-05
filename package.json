@@ -1,7 +1,7 @@
 {
     "name": "com.alexanderolsson711.gamecore",
     "version": "1.0.0",
-    "displayName": "Game Core", 
+    "displayName": "GameCore", 
     "description": "Contains useful core functionalities for a game.",
     "unity": "2020.1",
     "dependencies": {},
