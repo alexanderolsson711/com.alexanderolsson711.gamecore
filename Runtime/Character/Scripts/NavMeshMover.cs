@@ -20,7 +20,7 @@ namespace GameCore.Character
             this.agent = agent;
             agent.speed = speed;
             angularSpeed = speed * ANGULAR_SPEED_RATIO;
-            agent.gameObject.AddComponent<NavMeshMovementAnimationHanlder>().SetAnimator(character.GetCharacterAnimator());
+            agent.gameObject.AddComponent<NavMeshMovementAnimationHandler>().SetAnimator(character.GetCharacterAnimator());
         }
 
         public void MoveTo(Vector3 pos)

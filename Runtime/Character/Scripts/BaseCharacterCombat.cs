@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using GameCore.Services;
 
 namespace GameCore.Character
 {
@@ -11,6 +12,7 @@ namespace GameCore.Character
         protected float attackDelay;
         protected float attackColdown;
         private float lastAttackTime;
+        private ICoroutineService coroutineService;
 
         public BaseCharacterCombat(ICharacter character, int startHealth, int attackDmg, float attackDelay, float attackColdown)
         {
@@ -20,6 +22,11 @@ namespace GameCore.Character
             this.attackDmg = attackDmg;
             this.attackDelay = attackDelay;
             this.attackColdown = attackColdown;
+
+            if (!ServiceLocator.Instance.TryGetService(out coroutineService)) 
+            {
+                coroutineService = null;
+            }
         }
 
         public virtual void Attack()
@@ -28,8 +35,14 @@ namespace GameCore.Character
             {
                 lastAttackTime = Time.time;
                 animator.PlayAttack();
-                // TODO: Add coroutine for attack delay
-                DoAttack();
+                if (coroutineService != null)
+                {
+                    coroutineService.PerformAfterSeconds(DoAttack, attackDelay);
+                }
+                else
+                {
+                    DoAttack();
+                }
             }
             
         }
@@ -48,6 +61,5 @@ namespace GameCore.Character
         }
 
         protected abstract void DoAttack();
-
     }
 }

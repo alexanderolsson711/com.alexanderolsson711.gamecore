@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace GameCore.Character
 {
-    public class NavMeshMovementAnimationHanlder : MonoBehaviour
+    public class NavMeshMovementAnimationHandler : MonoBehaviour
     {
         private float normalizeSpeed;
         private NavMeshAgent agent;
