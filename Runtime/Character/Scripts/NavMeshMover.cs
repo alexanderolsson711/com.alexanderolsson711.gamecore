@@ -23,6 +23,11 @@ namespace GameCore.Character
             agent.gameObject.AddComponent<NavMeshMovementAnimationHandler>().SetAnimator(character.GetCharacterAnimator());
         }
 
+        public Transform GetTransform()
+        {
+            return agent.transform;
+        }
+
         public void MoveTo(Vector3 pos)
         {
             agent.angularSpeed = angularSpeed;
@@ -45,6 +50,11 @@ namespace GameCore.Character
                 }
             }
 
+        }
+
+        public void Stop()
+        {
+            agent.ResetPath();
         }
 
         public void TurnTowards(Vector3 point)
