@@ -1,29 +1,37 @@
 ﻿using UnityEngine;
 using GameCore.Services;
+using GameCore.Character;
 
-namespace GameCore.Character
+namespace GameCore.Combat
 {
-    public abstract class BaseCharacterCombat : ICharacterCombat
+    [RequireComponent(typeof(ICharacter))]
+    public abstract class BaseCharacterCombat : MonoBehaviour, ICharacterCombat, IHurtable
     {
+        #region Stats
+        [SerializeField]
+        protected int startHealth = 1;
+        [SerializeField]
+        protected int attackDmg = 1;
+        [SerializeField]
+        protected float attackDelay = 1;
+        [SerializeField]
+        protected float attackColdown = 2;
+        #endregion
+
         protected ICharacter character;
         protected ICharacterAnimator animator;
-        protected int health;
-        protected int attackDmg;
-        protected float attackDelay;
-        protected float attackColdown;
-        private float lastAttackTime;
         private ICoroutineService coroutineService;
 
-        public BaseCharacterCombat(ICharacter character, int startHealth, int attackDmg, float attackDelay, float attackColdown)
+        protected int health = 1;
+        private float lastAttackTime;
+
+        private void Start()
         {
-            this.character = character;
+            character = GetComponent<ICharacter>();
             animator = character.GetCharacterAnimator();
             health = startHealth;
-            this.attackDmg = attackDmg;
-            this.attackDelay = attackDelay;
-            this.attackColdown = attackColdown;
 
-            if (!ServiceLocator.Instance.TryGetService(out coroutineService)) 
+            if (!ServiceLocator.Instance.TryGetService(out coroutineService))
             {
                 coroutineService = null;
             }

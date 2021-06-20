@@ -8,6 +8,12 @@ namespace GameCore.Character
         protected ICharacterCombat combat;
         protected ICharacterMover mover;
 
+        protected virtual void Awake()
+        {
+            animator = new BaseCharacterAnimator(GetComponentInChildren<Animator>());
+            combat = GetComponent<ICharacterCombat>();
+        }
+
         public abstract void Died();
 
         public ICharacterAnimator GetCharacterAnimator()

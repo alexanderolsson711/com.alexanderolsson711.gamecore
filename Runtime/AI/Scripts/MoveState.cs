@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using GameCore.Character;
+using GameCore.Helpers;
 
 namespace GameCore.AI
 {
@@ -22,7 +23,7 @@ namespace GameCore.AI
 
         public bool IsFinished()
         {
-            return Vector3.Distance(mover.GetTransform().position, currentDestination) <= arrivedTresh;
+            return CharacterDistances.DistanceTo(currentDestination, mover) <= arrivedTresh;
         }
 
         public void OnEnter()
