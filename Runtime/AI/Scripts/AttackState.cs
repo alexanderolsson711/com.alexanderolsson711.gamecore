@@ -26,7 +26,7 @@ namespace GameCore.AI
 
         public bool IsFinished()
         {
-            return currentTarget == null;
+            return currentTarget == null || !currentTarget.gameObject.activeSelf;
         }
 
         public void OnEnter()

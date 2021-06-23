@@ -4,20 +4,35 @@ namespace GameCore.Character
 {
     public class BaseCharacterAnimator : ICharacterAnimator
     {
-        private Animator animator;
+        private readonly Animator animator;
+        private readonly CharacterAnimationInfo animationInfo;
 
-        private int attackHash;
-        private int deathHash;
-        private int hurtHash;
-        private int speedHash;
+        private readonly float attackAnimationLength;
 
-        public BaseCharacterAnimator (Animator animator)
+        private readonly int attackHash;
+        private readonly int deathHash;
+        private readonly int hurtHash;
+        private readonly int movementSpeedHash;
+        private readonly int attackSpeedHash;
+
+        public BaseCharacterAnimator (CharacterStats stats, CharacterAnimationInfo animationInfo, Animator animator)
         {
             this.animator = animator;
+            this.animationInfo = animationInfo;
+            attackAnimationLength = animationInfo.AttackAnimationLength;
+
             attackHash = Animator.StringToHash("Attack");
             deathHash = Animator.StringToHash("Death");
             hurtHash = Animator.StringToHash("Hurt");
-            speedHash = Animator.StringToHash("Speed");
+            movementSpeedHash = Animator.StringToHash("MovementSpeed");
+            attackSpeedHash = Animator.StringToHash("AttackSpeed");
+
+            SetAttackSpeed(stats.AttackSpeed);
+        }
+
+        public CharacterAnimationInfo GetCharacterAnimationInfo()
+        {
+            return animationInfo;
         }
 
         public void PlayAttack()
@@ -37,7 +52,12 @@ namespace GameCore.Character
 
         public void SetMovementSpeed(float speed)
         {
-            animator.SetFloat(speedHash, Mathf.Abs(speed));
+            animator.SetFloat(movementSpeedHash, Mathf.Abs(speed));
+        }
+
+        public void SetAttackSpeed(float speed)
+        {
+            animator.SetFloat(attackSpeedHash, Mathf.Abs(speed) * attackAnimationLength);
         }
     }
 }

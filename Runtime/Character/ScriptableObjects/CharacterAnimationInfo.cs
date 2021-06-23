@@ -1,0 +1,18 @@
+﻿using UnityEngine;
+
+namespace GameCore.Character
+{
+    [CreateAssetMenu(fileName ="AnimatorInfo", menuName = "GameCore/Character/AnimatorInfo")]
+    public class CharacterAnimationInfo : ScriptableObject
+    {
+        public float AttackAnimationLength => attackAnimationLength;
+        public float AttackAnimationDelay => attackAnimationDelay;
+
+        [SerializeField]
+        private float attackAnimationLength = 1;
+
+        [SerializeField]
+        private float attackAnimationDelay = 0.5f;
+
+    }
+}

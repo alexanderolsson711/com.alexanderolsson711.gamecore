@@ -9,38 +9,30 @@ namespace GameCore.Combat
     public abstract class BaseCharacterCombat : MonoBehaviour, ICharacterCombat, IHurtable
     {
         #region Stats
-        [SerializeField]
-        protected int startHealth = 1;
-        [SerializeField]
-        protected int attackDmg = 1;
-        [SerializeField]
-        protected float attackDelay = 1;
-        [SerializeField]
-        protected float attackColdown = 2;
+        protected int health;
+        protected int attackDmg;
+        protected float attackDelay;
+        protected float attackColdown;
         #endregion
 
         protected ICharacter character;
         protected ICharacterAnimator animator;
 
-        protected int health = 1;
         private float lastAttackTime;
 
         private void Start()
         {
             character = GetComponent<ICharacter>();
             animator = character.GetCharacterAnimator();
-            health = startHealth;
+            SetupCombatStats(character.GetCharacterStats(), animator.GetCharacterAnimationInfo());
         }
 
-        public virtual void Attack()
+        private void SetupCombatStats(CharacterStats stats, CharacterAnimationInfo animationInfo)
         {
-            if (Time.time - lastAttackTime >= attackColdown)
-            {
-                lastAttackTime = Time.time;
-                animator.PlayAttack();
-                StartCoroutine(WaitForAttack());
-            }
-            
+            health = stats.StartHealth;
+            attackDmg = stats.AttackDamage;
+            attackColdown = 1 / stats.AttackSpeed;
+            attackDelay = attackColdown * animationInfo.AttackAnimationDelay;
         }
 
         public virtual void Hurt(int damage)
@@ -56,9 +48,19 @@ namespace GameCore.Combat
             }
         }
 
+        public virtual void Attack()
+        {
+            if (Time.time - lastAttackTime >= attackColdown)
+            {
+                lastAttackTime = Time.time;
+                animator.PlayAttack();
+                StartCoroutine(WaitForAttack());
+            }    
+        }
+
         private IEnumerator WaitForAttack()
         {
-            yield return new WaitForSeconds(attackColdown);
+            yield return new WaitForSeconds(attackDelay);
             DoAttack();
         }
 

@@ -9,6 +9,7 @@ namespace GameCore.Character
         ICharacterAnimator GetCharacterAnimator();
         ICharacterCombat GetCharacterCombat();
         ICharacterMover GetCharacterMover();
+        CharacterStats GetCharacterStats();
 
     }
 }

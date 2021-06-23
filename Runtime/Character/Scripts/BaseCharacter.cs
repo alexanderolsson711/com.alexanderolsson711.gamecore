@@ -6,6 +6,12 @@ namespace GameCore.Character
 {
     public abstract class BaseCharacter : MonoBehaviour, ICharacter
     {
+        [SerializeField]
+        protected CharacterStats stats = null;
+
+        [SerializeField]
+        protected CharacterAnimationInfo animationInfo = null;
+
         protected List<Action<ICharacter>> onDiedListeners;
 
         protected ICharacterAnimator animator;
@@ -15,7 +21,7 @@ namespace GameCore.Character
         protected virtual void Awake()
         {
             onDiedListeners = new List<Action<ICharacter>>();
-            animator = new BaseCharacterAnimator(GetComponentInChildren<Animator>());
+            animator = new BaseCharacterAnimator(stats, animationInfo, GetComponentInChildren<Animator>());
             combat = GetComponent<ICharacterCombat>();
         }
 
@@ -44,6 +50,11 @@ namespace GameCore.Character
         public ICharacterMover GetCharacterMover()
         {
             return mover;
+        }
+
+        public CharacterStats GetCharacterStats()
+        {
+            return stats;
         }
     }
 }

@@ -15,11 +15,11 @@ namespace GameCore.Character
         private readonly float angularSpeed;
 
 
-        public NavMeshMover(ICharacter character, NavMeshAgent agent, float speed)
+        public NavMeshMover(ICharacter character, NavMeshAgent agent)
         {
             this.agent = agent;
-            agent.speed = speed;
-            angularSpeed = speed * ANGULAR_SPEED_RATIO;
+            agent.speed = character.GetCharacterStats().MovementSpeed;
+            angularSpeed = agent.speed * ANGULAR_SPEED_RATIO;
             agent.gameObject.AddComponent<NavMeshMovementAnimationHandler>().SetAnimator(character.GetCharacterAnimator());
         }
 

@@ -3,9 +3,11 @@ namespace GameCore.Character
 {
     public interface ICharacterAnimator
     {
-        void SetMovementSpeed(float speed);
+        CharacterAnimationInfo GetCharacterAnimationInfo();
         void PlayAttack();
         void PlayHurt();
         void PlayDeath();
+        void SetMovementSpeed(float speed);
+        void SetAttackSpeed(float speed);
     }
 }
