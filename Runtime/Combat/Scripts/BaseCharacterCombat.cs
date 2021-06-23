@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using GameCore.Services;
 using GameCore.Character;
+using System.Collections;
+using System;
 
 namespace GameCore.Combat
 {
@@ -20,7 +21,6 @@ namespace GameCore.Combat
 
         protected ICharacter character;
         protected ICharacterAnimator animator;
-        private ICoroutineService coroutineService;
 
         protected int health = 1;
         private float lastAttackTime;
@@ -30,11 +30,6 @@ namespace GameCore.Combat
             character = GetComponent<ICharacter>();
             animator = character.GetCharacterAnimator();
             health = startHealth;
-
-            if (!ServiceLocator.Instance.TryGetService(out coroutineService))
-            {
-                coroutineService = null;
-            }
         }
 
         public virtual void Attack()
@@ -43,14 +38,7 @@ namespace GameCore.Combat
             {
                 lastAttackTime = Time.time;
                 animator.PlayAttack();
-                if (coroutineService != null)
-                {
-                    coroutineService.PerformAfterSeconds(DoAttack, attackDelay);
-                }
-                else
-                {
-                    DoAttack();
-                }
+                StartCoroutine(WaitForAttack());
             }
             
         }
@@ -68,6 +56,17 @@ namespace GameCore.Combat
             }
         }
 
+        private IEnumerator WaitForAttack()
+        {
+            yield return new WaitForSeconds(attackColdown);
+            DoAttack();
+        }
+
         protected abstract void DoAttack();
+
+        public void AddOnDestroyListener(Action<IHurtable> listener)
+        {
+            character.AddOnDiedListener(c => listener(this));
+        }
     }
 }

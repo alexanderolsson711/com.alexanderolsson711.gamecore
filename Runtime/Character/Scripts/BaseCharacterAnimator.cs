@@ -19,6 +19,7 @@ namespace GameCore.Character
             hurtHash = Animator.StringToHash("Hurt");
             speedHash = Animator.StringToHash("Speed");
         }
+
         public void PlayAttack()
         {
             animator.SetTrigger(attackHash);
