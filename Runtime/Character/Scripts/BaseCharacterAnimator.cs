@@ -7,6 +7,7 @@ namespace GameCore.Character
         private readonly Animator animator;
         private readonly CharacterAnimationInfo animationInfo;
 
+        private readonly float moveAnimationSpeed;
         private readonly float attackAnimationLength;
 
         private readonly int attackHash;
@@ -19,6 +20,7 @@ namespace GameCore.Character
         {
             this.animator = animator;
             this.animationInfo = animationInfo;
+            moveAnimationSpeed = animationInfo.MoveAnimationSpeed;
             attackAnimationLength = animationInfo.AttackAnimationLength;
 
             attackHash = Animator.StringToHash("Attack");
@@ -52,7 +54,7 @@ namespace GameCore.Character
 
         public void SetMovementSpeed(float speed)
         {
-            animator.SetFloat(movementSpeedHash, Mathf.Abs(speed));
+            animator.SetFloat(movementSpeedHash, Mathf.Abs(speed) * moveAnimationSpeed);
         }
 
         public void SetAttackSpeed(float speed)

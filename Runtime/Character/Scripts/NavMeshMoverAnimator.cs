@@ -19,7 +19,7 @@ namespace GameCore.Character
         {
             if (animator != null)
             {
-                animator.SetMovementSpeed(agent.velocity.magnitude / normalizeSpeed);
+                animator.SetMovementSpeed(agent.velocity.magnitude);
             }
         }
 
