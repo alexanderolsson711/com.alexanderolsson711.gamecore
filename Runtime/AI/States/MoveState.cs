@@ -23,7 +23,7 @@ namespace GameCore.AI
 
         public bool IsFinished()
         {
-            return CharacterDistances.DistanceTo(currentDestination, mover) <= arrivedTresh;
+            return CharacterDistances.DistanceTo(mover, currentDestination) <= arrivedTresh;
         }
 
         public void OnEnter()

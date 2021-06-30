@@ -18,6 +18,8 @@ namespace GameCore.AI
         protected virtual void Start()
         {
             GetCharacter();
+            GetServices();
+            UpdateTargets();
             SetupStateMachine();
         }
         private void GetCharacter()
@@ -27,6 +29,8 @@ namespace GameCore.AI
             mover = character.GetCharacterMover();
             characterTransform = mover.GetTransform();
         }
+
+        protected abstract void GetServices();
 
         protected abstract void SetupStateMachine();
 

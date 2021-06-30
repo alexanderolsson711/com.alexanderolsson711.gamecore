@@ -2,7 +2,7 @@
 
 namespace GameCore.Character
 {
-    [CreateAssetMenu(fileName ="AnimatorInfo", menuName = "GameCore/Character/AnimatorInfo")]
+    [CreateAssetMenu(fileName = "AnimationInfo", menuName = "GameCore/Character/AnimatorInfo")]
     public class CharacterAnimationInfo : ScriptableObject
     {
         public float MoveAnimationSpeed => moveAnimationSpeed;

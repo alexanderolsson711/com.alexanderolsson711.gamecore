@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameCore.Combat
@@ -6,13 +7,14 @@ namespace GameCore.Combat
     public class MeeleCombat : BaseCharacterCombat
     {
         [SerializeField]
-        private HurtableColliderContainer attackPoint = null;
+        private AttackPoint attackPoint = null;
 
         protected override void DoAttack()
         {
-            if (attackPoint.HurtablesInside.Count >= 1)
+            List<IHurtable> hurtables = attackPoint.GetHurtables();
+            if (hurtables.Count >= 1)
             {
-                attackPoint.HurtablesInside.First().Hurt(attackDmg);
+                hurtables.First().Hurt(attackDmg);
             }
         }
     }

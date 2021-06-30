@@ -9,7 +9,6 @@ namespace GameCore.AI
         private readonly ICharacterMover mover;
         private readonly ICharacterCombat combat;
         private readonly Func<Transform> getTargetFunc;
-        private Transform currentTarget;
 
         public AttackState(ICharacterMover mover, ICharacterCombat combat, Func<Transform> getTargetFunc)
         {
@@ -20,18 +19,18 @@ namespace GameCore.AI
 
         public void Tick()
         {
-            mover.TurnTowards(currentTarget.position);
+            mover.TurnTowards(getTargetFunc().position);
             combat.Attack();
         }
 
         public bool IsFinished()
         {
-            return currentTarget == null || !currentTarget.gameObject.activeSelf;
+            return getTargetFunc() == null;
         }
 
         public void OnEnter()
         {
-            currentTarget = getTargetFunc();
+            
         }
 
         public void OnExit()

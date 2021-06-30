@@ -65,10 +65,5 @@ namespace GameCore.Combat
         }
 
         protected abstract void DoAttack();
-
-        public void AddOnDestroyListener(Action<IHurtable> listener)
-        {
-            character.AddOnDiedListener(c => listener(this));
-        }
     }
 }

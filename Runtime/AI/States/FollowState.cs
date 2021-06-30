@@ -10,7 +10,6 @@ namespace GameCore.AI
         private readonly ICharacterMover mover;
         private readonly Func<Transform> getTargetFunc;
         private readonly float arrivedTresh = 1f;
-        private Transform currentTarget;
 
         public FollowState(ICharacterMover mover, Func<Transform> getTargetFunc, float arrivedTresh = 1)
         {
@@ -21,17 +20,18 @@ namespace GameCore.AI
 
         public void Tick()
         {
-            mover.MoveTo(currentTarget.position);
+            mover.MoveTo(getTargetFunc().position);
         }
 
         public bool IsFinished()
         {
-            return CharacterDistances.DistanceTo(currentTarget.position, mover) <= arrivedTresh;
+            Transform currentTarget = getTargetFunc();
+            return currentTarget == null || CharacterDistances.DistanceTo(mover, currentTarget.position) <= arrivedTresh;
         }
 
         public void OnEnter()
         {
-            currentTarget = getTargetFunc();
+            
         }
 
         public void OnExit()
