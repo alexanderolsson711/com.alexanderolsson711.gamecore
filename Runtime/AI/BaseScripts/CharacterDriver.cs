@@ -11,6 +11,7 @@ namespace GameCore.AI
         protected ICharacterMover mover;
         protected ICharacterCombat combat;
         protected Transform characterTransform;
+        protected float attackRange;
         #endregion
 
         protected StateMachine stateMachine;
@@ -28,6 +29,7 @@ namespace GameCore.AI
             combat = character.GetCharacterCombat();
             mover = character.GetCharacterMover();
             characterTransform = mover.GetTransform();
+            attackRange = character.GetCharacterStats().AttackRange;
         }
 
         protected abstract void GetServices();

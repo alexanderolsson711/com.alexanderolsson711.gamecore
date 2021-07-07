@@ -9,6 +9,7 @@ namespace GameCore.Character
         public float MovementSpeed => movementSpeed;
         public int AttackDamage => attackDamage;
         public float AttackSpeed => attackSpeed;
+        public float AttackRange => attackRange;
 
         [SerializeField]
         private int startHealth = 3;
@@ -21,5 +22,8 @@ namespace GameCore.Character
 
         [SerializeField]
         private float attackSpeed = 1;
+
+        [SerializeField]
+        private float attackRange = 1.1f;
     }
 }

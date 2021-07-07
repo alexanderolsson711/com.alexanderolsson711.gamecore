@@ -19,7 +19,10 @@ namespace GameCore.AI
             this.arrivedTresh = arrivedTresh;
         }
 
-        public void Tick() { }
+        public void Tick() 
+        {
+            mover.MoveTo(currentDestination);
+        }
 
         public bool IsFinished()
         {
@@ -29,7 +32,6 @@ namespace GameCore.AI
         public void OnEnter()
         {
             currentDestination = getDestinationFunc();
-            mover.MoveTo(currentDestination);
         }
 
         public void OnExit()

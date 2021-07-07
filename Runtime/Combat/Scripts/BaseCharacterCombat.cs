@@ -11,6 +11,7 @@ namespace GameCore.Combat
         #region Stats
         protected int health;
         protected int attackDmg;
+        protected float attackRange;
         protected float attackDelay;
         protected float attackColdown;
         #endregion
@@ -31,6 +32,7 @@ namespace GameCore.Combat
         {
             health = stats.StartHealth;
             attackDmg = stats.AttackDamage;
+            attackRange = stats.AttackRange;
             attackColdown = 1 / stats.AttackSpeed;
             attackDelay = attackColdown * animationInfo.AttackAnimationDelay;
         }

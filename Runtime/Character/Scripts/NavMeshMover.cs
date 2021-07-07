@@ -15,12 +15,15 @@ namespace GameCore.Character
         private readonly float angularSpeed;
         private readonly bool verticalForzen;
 
+        private Vector3 currentDestination;
+
         public NavMeshMover(ICharacter character, NavMeshAgent agent, bool verticalForzen = false)
         {
             this.verticalForzen = verticalForzen;
             this.agent = agent;
             agent.speed = character.GetCharacterStats().MovementSpeed;
             angularSpeed = agent.speed * ANGULAR_SPEED_RATIO;
+            agent.angularSpeed = angularSpeed;
             agent.gameObject.AddComponent<NavMeshMovementAnimationHandler>().SetAnimator(character.GetCharacterAnimator());
         }
 
@@ -31,8 +34,11 @@ namespace GameCore.Character
 
         public void MoveTo(Vector3 position)
         {
-            agent.angularSpeed = angularSpeed;
-            agent.SetDestination(position);
+            if (position != currentDestination || !agent.hasPath)
+            {
+                currentDestination = position;
+                agent.SetDestination(currentDestination);
+            }
         }
 
         public void MoveTowards(Vector3 direction)
@@ -69,6 +75,16 @@ namespace GameCore.Character
                 point.y = agent.transform.position.y;
             }
             agent.transform.LookAt(point);
+        }
+
+        public void Rotate(Vector3 euler)
+        {
+            if (verticalForzen)
+            {
+                euler.x = 0;
+                euler.z = 0;
+            }
+            agent.transform.Rotate(euler);
         }
     }
 }

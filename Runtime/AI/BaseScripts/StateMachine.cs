@@ -37,6 +37,12 @@ namespace GameCore.AI
             conditions.Add(cond);
         }
 
+        public void JumpOutOfState()
+        {
+            currentState?.OnExit();
+            currentState = null;
+        }
+
         private void ChangeCurrentState()
         {
             lastSwitchTime = Time.time;
